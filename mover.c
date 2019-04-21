@@ -1,5 +1,5 @@
 void mover_cobra(){
-  char i, proximox, proximoy, proximo_bitmap_cabeca, proximo_bitmap_pescoco;
+  char proximox, proximoy, proximo_bitmap_cabeca, proximo_bitmap_pescoco;
 
   switch(direcao){
     case CIMA:
@@ -65,6 +65,8 @@ void mover_cobra(){
   }
 
   switch(tabuleiro[proximox][proximoy]){
+    char i;
+
     case ' ':
       desenhar_cobra(APAGAR_PEDACO_COBRA);
       
@@ -100,20 +102,21 @@ void mover_cobra(){
           else
             cobra[tamanho_cobra - 1].bitmap = '';
 
-
       desenhar_cobra(DESENHAR_COBRA_INTEIRA);
       break;
     case 'm':
       break;
     case 'Ä'://196
-    case '³':
+    case '³'://179
     case 'À'://192
     case '¿'://191
     case 'Ù'://217
     case 'Ú'://218
     case 'c':
       vidas--;
+      desenhar_cobra(APAGAR_COBRA_INTEIRA);
       cobra_init(12, 12);
+      desenhar_cobra(DESENHAR_COBRA_INTEIRA);
       break;
   }
 }
