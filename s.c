@@ -1,6 +1,8 @@
 #include <allegro.h>
 #include <stdio.h>
+#include <unistd.h>
 #include <conio.h>
+#include <pc.h>
 
 #define MAX_COBRA 100
 
@@ -18,7 +20,7 @@ int main(void);
 void mover_cobra(void);
 void desenhar_cobra(char);
 
-char tabuleiro[26][19], x, y, tamanho_cobra, direcao, game_over;
+char tabuleiro[33][23], x, y, tamanho_cobra, direcao, game_over;
 BITMAP *chao, *parede, *maca, *spider,
        *cabeca, *vertebrahorizontal, *vertebravertical, *cauda,
        *vertebrasuperiordireita, *vertebrasuperioresquerda,
@@ -80,8 +82,8 @@ int main(){
   y = 0;
   while(!feof(tabuleiro_arq)){
     y++;
-    fgets(temp, 27, tabuleiro_arq);
-    for(x=0; x<=25; x++){
+    fgets(temp, 34, tabuleiro_arq);
+    for(x=0; x<=32; x++){
     	switch(temp[x]){
         case '³':
         case 'Ä':
@@ -99,8 +101,8 @@ int main(){
   /******************************/
   /* Desenhar tabuleiro na tela */
   /******************************/
-  for(y = 1; y <= 18; y++){
-    for(x = 1; x <= 25; x++){
+  for(y = 1; y <= 23; y++){
+    for(x = 1; x <= 32; x++){
       switch(tabuleiro[x][y]){
         case 'Ú':
         case 'À':
@@ -123,8 +125,7 @@ int main(){
   while(!game_over){
 
     mover_cobra();
-    sleep(1);
-    //usleep(10000000); //muito r pido
+    usleep(500000); //muito r pido
     
     while(kbhit()){
       tecla = getch();
