@@ -1,7 +1,7 @@
 #include <allegro.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <conio.h>
+//#include <conio.h>
 #include <math.h>
 #include <time.h>
 #include <stdlib.h>
@@ -35,16 +35,15 @@ struct vertebra{
 } cobra[MAX_COBRA];
 
 
-
 int main(){
-  char tecla;
+  int tecla;
 
   /******************************/
   /* Inicializa‡Æo da variaveis */
   /******************************/
   allegro_init();
-  //set_gfx_mode(GFX_SAFE, 1024, 768, 0, 0);
-  set_gfx_mode(GFX_AUTODETECT, 1024, 768, 0, 0);
+  install_keyboard();
+  set_gfx_mode(GFX_AUTODETECT, 1024, 768, 0, 0); //tamb‚m podia ser GFX_SAFE
 
   //Carrega os tiles para cada bitmap
   bitmaps_init();
@@ -87,23 +86,25 @@ int main(){
     textprintf(screen, font, 864,  0, makecol(255,255,255), "Vidas: %d   ", vidas);
     textprintf(screen, font, 864,  8, makecol(255,255,255), "Pontos: %d   ", pontos);
     textprintf(screen, font, 864, 16, makecol(255,255,255), "Delay: %d   ", velocidade);
+    textprintf(screen, font, 864, 64, makecol(255,255,255), "Tecla SC: %d   ", tecla>>8);
+    textprintf(screen, font, 864, 72, makecol(255,255,255), "Tecla Asc: %d   ", tecla & 0xFF);
+    textprintf(screen, font, 864, 80, makecol(255,255,255), "direcao: %d   ", direcao);
 
     //sleep(1); //lento
     usleep(velocidade);
 
-    while(kbhit()){
-      tecla = getch();
-      if(tecla == 0) tecla = getch(); //se a tecla pressionada for extendida, ler o sengundo caracter no buffer do teclado
-    }
-
-    if(((tecla == CIMA) || (tecla == BAIXO) || (tecla == DIREITA) || (tecla == ESQUERDA)) && ((tecla + direcao) != 152)){
-      direcao = tecla;
-      tecla = 0;//este comando serve para que o programa nÆo fique passando por aqui toda hora
-    }
-    else
-      if(tecla == ESC){
-        vidas = 0;
+    if(keypressed()){
+      while(keypressed()){
+        tecla = readkey();
       };
+      if((tecla>>8 == KEY_UP) || (tecla>>8 == KEY_DOWN) || (tecla>>8 == KEY_LEFT) || (tecla>>8 == KEY_RIGHT)){
+        direcao = tecla>>8;
+      }
+      else
+        if((tecla & 0xFF) == ESC){
+          vidas = 0;
+        };
+    }
   }
   return(0);
 }

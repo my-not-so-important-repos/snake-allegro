@@ -1,9 +1,9 @@
 #define MAX_COBRA 100
 
-#define CIMA 72
-#define BAIXO 80
-#define ESQUERDA 75
-#define DIREITA 77
+#define ESQUERDA 82
+#define DIREITA 83
+#define CIMA 84
+#define BAIXO 85
 #define ESC 27
 
 #define DESENHAR_PEDACO_COBRA 1
