@@ -72,7 +72,7 @@ void mover_cobra(){
       tem_maca = 0;
       pontos += 10;
       if(fmod(pontos / 10, 5) == 0){
-        velocidade -= 25000;
+        velocidade *= 0.80;
       }
       //Fazer a cobra crescer
       tamanho_cobra += 1;

@@ -1,7 +1,6 @@
 #include <allegro.h>
 #include <stdio.h>
 #include <unistd.h>
-//#include <conio.h>
 #include <math.h>
 #include <time.h>
 #include <stdlib.h>
@@ -43,7 +42,39 @@ int main(){
   /******************************/
   allegro_init();
   install_keyboard();
+
   set_gfx_mode(GFX_AUTODETECT, 1024, 768, 0, 0); //tamb‚m podia ser GFX_SAFE
+
+  //
+  // Carregar a imagem de abertura
+  //
+  {
+    BITMAP *abertura;
+    PALETTE paleta;
+
+    abertura = load_bitmap("abert.bmp", paleta);
+    set_palette(paleta);
+    
+    blit(abertura, screen, 0, 0, (SCREEN_W-abertura->w)/2, (SCREEN_H-abertura->h)/2, abertura->w, abertura->h);
+    readkey();
+    destroy_bitmap(abertura);
+  }
+
+
+  {
+    BITMAP *right_panel;
+    PALETTE paleta2;
+
+    right_panel = load_bitmap("right.bmp", paleta2);
+    set_palette(paleta2);
+    blit(right_panel, screen, 0, 0, 864, 0, right_panel->w, right_panel->h);
+    //destroy_bitmap(right_panel);
+    readkey();
+  }
+
+
+  
+
 
   //Carrega os tiles para cada bitmap
   bitmaps_init();
@@ -69,9 +100,15 @@ int main(){
   /****************************/
   while(vidas){
 
-    /********************/
-    /* Colocar as ma‡Æs */
-    /********************/
+
+    // *********************************
+    // se (timer() - tempo_i >= delay) {
+    // *********************************
+
+
+
+    // Colocar as ma‡Æs
+
     if(!tem_maca){
       do{
         x_maca = (int) fmod(rand(), 25) + 2; //2 <= x <= 26
@@ -89,24 +126,52 @@ int main(){
     textprintf(screen, font, 864, 72, makecol(255,255,255), "ASCII: %d   ", tecla & 0xFF);
     textprintf(screen, font, 864, 80, makecol(255,255,255), "direcao: %d   ", direcao);
 
-    //sleep(1); //lento
 
-    //BUG: tem uma hora que o delay vai diminuindo at‚ ficar zero,
-    //     e a¡ fica muito r pido nÆo d  pra ver nada e a Gisele morre.
-    //SOLU€ÇO: antes de decrementar o delay, verificar se ele ‚ menor que 25000
-    usleep(velocidade);
+
+    //***********************************
+    //
+    // tempo_i = timer();
+    // }
+    //
+    //***********************************
+
+
+
+
+
+
+   usleep(velocidade);
 
     if(keypressed()){
       while(keypressed()){
         tecla = readkey();
       };
-      if((tecla>>8 == KEY_UP) || (tecla>>8 == KEY_DOWN) || (tecla>>8 == KEY_LEFT) || (tecla>>8 == KEY_RIGHT)){
-        direcao = tecla>>8;
-      }
-      else
-        if((tecla & 0xFF) == ESC){
+
+      switch(tecla>>8){
+        case KEY_UP:
+          if(direcao != BAIXO){
+            direcao = tecla>>8;
+          }
+        break;
+        case KEY_DOWN:
+          if(direcao != CIMA){
+            direcao = tecla>>8;
+          }
+        break;
+        case KEY_RIGHT:
+          if(direcao != ESQUERDA){
+            direcao = tecla>>8;
+          }
+        break;
+        case KEY_LEFT:
+          if(direcao != DIREITA){
+            direcao = tecla>>8;
+          }
+        break;
+        case KEY_ESC:
           vidas = 0;
-        };
+        break;
+      }
     }
   }
   return(0);
