@@ -72,7 +72,7 @@ void mover_cobra(){
       tem_maca = 0;
       pontos += 10;
       if(fmod(pontos / 10, 5) == 0){
-        velocidade *= 0.80;
+        velocidade *= 0.75;
       }
       //Fazer a cobra crescer
       tamanho_cobra += 1;
@@ -140,7 +140,7 @@ void mover_cobra(){
     case 'Å'://197
     case 'c':
       vidas--;
-      velocidade = 500000;
+      velocidade = VELOCIDADE_INICIAL;
       desenhar_cobra(APAGAR_COBRA_INTEIRA);
       cobra_init(posicao_inicial_x, posicao_inicial_y);
       direcao = direcao_inicial;
