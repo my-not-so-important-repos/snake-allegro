@@ -8,14 +8,6 @@
 #include "desenhar.c"
 #include "mover.c"
 
-void menu_abertura()
-{
-  BITMAP *abertura;
-  abertura = load_bitmap("abert2.bmp", NULL);
-  stretch_blit(abertura, screen, 0, 0, abertura->w, abertura->h, 0, 0, SCREEN_W, SCREEN_H);
-  readkey();
-  destroy_bitmap(abertura);
-}
 
 void sorteia_maca()
 {
@@ -30,10 +22,10 @@ void sorteia_maca()
   tem_maca = true;
 }
 
+
 int main()
 {
   int tecla;
-  MIDI *fundo_musical;
 
   allegro_init();
   install_keyboard();
@@ -44,13 +36,14 @@ int main()
   set_gfx_mode(GFX_AUTODETECT, 1024, 768, 0, 0);
 
   menu_abertura();
-
+  
+  MIDI *fundo_musical;
   fundo_musical = load_midi("Anything_But_Tangerines.mid");
   play_midi(fundo_musical, true);
 
   bitmaps_init("chip2.bmp");
-
-  carregar_tabuleiro("board.map", tabuleiro);
+  
+  carregar_tabuleiro("diego's.map", tabuleiro);
 
   desenhar_tabuleiro(tabuleiro);
 
@@ -62,10 +55,7 @@ int main()
   velocidade = VELOCIDADE_INICIAL;
   srand(time(NULL));
 
-
-
-
-
+  desenhar_painel();
 
   while(vidas > 0)
   {
@@ -104,14 +94,14 @@ int main()
           vidas = 0;
           break;
         case KEY_A:
-          save_pcx("snap.pcx", screen, NULL);
+          save_bmp("snap.bmp", screen, NULL);
           break;
       } // switch(tecla >> 8)
     } // if(keypressed())
-
-
-
-
+    
+    
+    
+    
 
     mover_cobra();
 
@@ -131,39 +121,14 @@ int main()
 
 
 
-
-
-
-
-
-
-
-
-
   for(int i = 0; i < 27; i++)
   {
     destroy_bitmap(skin[i]);
   }
-
-  destroy_bitmap(parede_t_direita);
-  destroy_bitmap(parede_t_esquerda);
-  destroy_bitmap(parede_t_cima);
-  destroy_bitmap(parede_t_baixo);
-  destroy_bitmap(cauda_esquerda);
-  destroy_bitmap(cauda_direita);
-  destroy_bitmap(cauda_baixo);
-  destroy_bitmap(parede_horizontal);
-  destroy_bitmap(parede_vertical);
-  destroy_bitmap(parede_superior_direita);
-  destroy_bitmap(parede_superior_esquerda);
-  destroy_bitmap(parede_inferior_direita);
-  destroy_bitmap(parede_inferior_esquerda);
-  destroy_bitmap(vertebra_horizontal);
-  destroy_bitmap(vertebra_vertical);
 
   destroy_midi(fundo_musical);
 
   allegro_exit();
   return 0;
 }
-END_OF_MAIN()
+END_OF_MAIN() // nao tem ponto e virgula no final

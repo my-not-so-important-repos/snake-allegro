@@ -1,5 +1,3 @@
-
-#include <stdlib.h>
 #include <stdio.h>
 
 void carregar_tabuleiro(char *arquivo, board &tabuleiro){

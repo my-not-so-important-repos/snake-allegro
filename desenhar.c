@@ -79,23 +79,23 @@ void desenhar_cobra(char operacao){
               break;
 
             case 'Í':
-              blit(vertebra_horizontal, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              blit(skin[RABO_HORIZONTAL - 1], screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
               break;
             case 'º':
-              blit(vertebra_vertical, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              blit(skin[RABO_VERTICAL - 1], screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
               break;
               
             case 'É':
-              blit(vertebra_inferior_direita, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              blit(skin[RABO_CANTO_SUPERIOR_ESQUERDO - 1], screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
               break;
             case '»':
-              blit(vertebra_inferior_esquerda, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              blit(skin[RABO_CANTO_SUPERIOR_DIREITO - 1], screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
               break;
             case 'È':
-              blit(vertebra_superior_direita, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              blit(skin[RABO_CANTO_INFERIOR_ESQUERDO - 1], screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
               break;
             case '¼':
-              blit(vertebra_superior_esquerda, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              blit(skin[RABO_CANTO_INFERIOR_DIREITO - 1], screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
               break;
           } // switch(cobra[i].bitmap)
         } // for(i = 0; i <= (tamanho_cobra - 1); i++)
@@ -120,22 +120,22 @@ void desenhar_cobra(char operacao){
       }
       switch(cobra[1].bitmap){
         case 'È':
-          blit(vertebra_superior_direita, screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, 32, 32);
+          blit(skin[RABO_CANTO_INFERIOR_ESQUERDO - 1], screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, 32, 32);
           break;
         case 'É':
-          blit(vertebra_inferior_direita, screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, 32, 32);
+          blit(skin[RABO_CANTO_SUPERIOR_ESQUERDO - 1], screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, 32, 32);
           break;
         case '»':
-          blit(vertebra_inferior_esquerda, screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, 32, 32);
+          blit(skin[RABO_CANTO_SUPERIOR_DIREITO - 1], screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, 32, 32);
           break;
         case '¼':
-          blit(vertebra_superior_esquerda, screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, 32, 32);
+          blit(skin[RABO_CANTO_INFERIOR_DIREITO - 1], screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, 32, 32);
           break;
         case 'º':
-          blit(vertebra_vertical, screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, 32, 32);
+          blit(skin[RABO_VERTICAL - 1], screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, 32, 32);
           break;
         case 'Í':
-          blit(vertebra_horizontal, screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, 32, 32);
+          blit(skin[RABO_HORIZONTAL - 1], screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, 32, 32);
           break;
       }
       break;
@@ -150,5 +150,22 @@ void desenhar_cobra(char operacao){
       };
       break;
   }
+}
+
+void menu_abertura()
+{
+  BITMAP *abertura;
+  abertura = load_bitmap("abert3.bmp", NULL);
+  blit(abertura, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+  readkey();
+  destroy_bitmap(abertura);
+}
+
+void desenhar_painel()
+{
+  BITMAP *painel;
+  painel = load_bmp("right.bmp", NULL);
+  blit(painel, screen, 0, 0, 864, 0, painel->w, painel->h);
+  destroy_bitmap(painel);
 }
 
