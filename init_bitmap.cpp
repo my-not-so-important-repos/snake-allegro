@@ -1,4 +1,5 @@
-void bitmaps_init(char *arquivo){
+void bitmaps_init(char *arquivo)
+{
   BITMAP *chipset;
   chipset = load_bitmap(arquivo, NULL);
   for(int i = 0; i < 27; i++)
@@ -9,6 +10,5 @@ void bitmaps_init(char *arquivo){
     skin[i] = create_bitmap(32, 32);
     blit(chipset, skin[i], objeto_x * 32, objeto_y * 32, 0, 0, 32, 32);
   }
-  destroy_bitmap(chipset); // nao sera mais usado
+  destroy_bitmap(chipset);
 }
-

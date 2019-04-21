@@ -1,0 +1,2 @@
+Melhorar o codigo que faz o delay.
+Usar diferença de tempo.

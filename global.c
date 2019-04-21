@@ -14,34 +14,34 @@ const int APAGAR_COBRA_INTEIRA   = 5;
 
 const int VELOCIDADE_INICIAL = 250;
 
-const int VAZIO                        =  1;
-const int CRUZ                         =  2;
-const int HORIZONTAL                   =  3;
-const int VERTICAL                     =  4;
-const int CANTO_SUPERIOR_ESQUERDO      =  5;
-const int CANTO_SUPERIOR_DIREITO       =  6;
-const int CANTO_INFERIOR_ESQUERDO      =  7;
-const int CANTO_INFERIOR_DIREITO       =  8;
-const int T_BAIXO                      =  9;
-const int T_CIMA                       = 10;
-const int T_DIREITA                    = 11;
-const int T_ESQUERDA                   = 12;
-const int CABECA_CIMA                  = 13;
-const int CABECA_BAIXO                 = 14;
-const int CABECA_ESQUERDA              = 15;
-const int CABECA_DIREITA               = 16;
-const int RABO_CIMA                    = 17;
-const int RABO_BAIXO                   = 18;
-const int RABO_ESQUERDA                = 19;
-const int RABO_DIREITA                 = 20;
-const int RABO_CANTO_SUPERIOR_ESQUERDO = 21;
-const int RABO_CANTO_SUPERIOR_DIREITO  = 22;
-const int RABO_CANTO_INFERIOR_ESQUERDO = 23;
-const int RABO_CANTO_INFERIOR_DIREITO  = 24;
-const int RABO_HORIZONTAL              = 25;
-const int RABO_VERTICAL                = 26;
-const int MACA                         = 27;
-const int RESERVADO                    = 28;
+const int VAZIO                        = 65;
+const int CRUZ                         = 66;
+const int HORIZONTAL                   = 67;
+const int VERTICAL                     = 68;
+const int CANTO_SUPERIOR_ESQUERDO      = 69;
+const int CANTO_SUPERIOR_DIREITO       = 70;
+const int CANTO_INFERIOR_ESQUERDO      = 71;
+const int CANTO_INFERIOR_DIREITO       = 72;
+const int T_BAIXO                      = 73;
+const int T_CIMA                       = 74;
+const int T_DIREITA                    = 75;
+const int T_ESQUERDA                   = 76;
+const int CABECA_CIMA                  = 77;
+const int CABECA_BAIXO                 = 78;
+const int CABECA_ESQUERDA              = 79;
+const int CABECA_DIREITA               = 80;
+const int RABO_CIMA                    = 81;
+const int RABO_BAIXO                   = 82;
+const int RABO_ESQUERDA                = 83;
+const int RABO_DIREITA                 = 84;
+const int RABO_CANTO_SUPERIOR_ESQUERDO = 85;
+const int RABO_CANTO_SUPERIOR_DIREITO  = 86;
+const int RABO_CANTO_INFERIOR_ESQUERDO = 87;
+const int RABO_CANTO_INFERIOR_DIREITO  = 88;
+const int RABO_HORIZONTAL              = 89;
+const int RABO_VERTICAL                = 90;
+const int MACA                         = 91;
+const int RESERVADO                    = 92;
 
 
 
@@ -56,6 +56,7 @@ char tamanho_cobra, direcao, vidas,
 unsigned int pontos = 0, velocidade;
 
 BITMAP *skin[27];
+MIDI *fundo_musical;
 
 struct vertebra{
   char x, y, bitmap;
