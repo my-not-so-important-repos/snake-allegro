@@ -62,12 +62,11 @@ int main(){
   tem_maca = 0;
   pontos = 0;
   velocidade = 500000;
-  //velocidade = 100000;
+  srand(time(NULL));
 
   /****************************/
   /* In¡cio do loop principal */
   /****************************/
-  srand(time(NULL));
   while(vidas){
 
     /********************/
@@ -86,11 +85,15 @@ int main(){
     textprintf(screen, font, 864,  0, makecol(255,255,255), "Vidas: %d   ", vidas);
     textprintf(screen, font, 864,  8, makecol(255,255,255), "Pontos: %d   ", pontos);
     textprintf(screen, font, 864, 16, makecol(255,255,255), "Delay: %d   ", velocidade);
-    textprintf(screen, font, 864, 64, makecol(255,255,255), "Tecla SC: %d   ", tecla>>8);
-    textprintf(screen, font, 864, 72, makecol(255,255,255), "Tecla Asc: %d   ", tecla & 0xFF);
+    textprintf(screen, font, 864, 64, makecol(255,255,255), "ScanCode: %d   ", tecla>>8);
+    textprintf(screen, font, 864, 72, makecol(255,255,255), "ASCII: %d   ", tecla & 0xFF);
     textprintf(screen, font, 864, 80, makecol(255,255,255), "direcao: %d   ", direcao);
 
     //sleep(1); //lento
+
+    //BUG: tem uma hora que o delay vai diminuindo at‚ ficar zero,
+    //     e a¡ fica muito r pido nÆo d  pra ver nada e a Gisele morre.
+    //SOLU€ÇO: antes de decrementar o delay, verificar se ele ‚ menor que 25000
     usleep(velocidade);
 
     if(keypressed()){
