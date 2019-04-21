@@ -1,0 +1,13 @@
+#define MAX_COBRA 100
+
+#define CIMA 72
+#define BAIXO 80
+#define ESQUERDA 75
+#define DIREITA 77
+#define ESC 27
+
+#define DESENHAR_PEDACO_COBRA 1
+#define APAGAR_PEDACO_COBRA 2
+#define DESENHAR_CABECA 3
+#define DESENHAR_COBRA_INTEIRA 4
+#define APAGAR_COBRA_INTEIRA 5
