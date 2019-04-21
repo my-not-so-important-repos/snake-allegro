@@ -71,9 +71,16 @@ void mover_cobra(){
       tabuleiro[proximox][proximoy] = ' ';
       tem_maca = 0;
       pontos += 10;
+      
+      // descomente, para acelerar a velocidade a cada 5 maças comidas
+      /*
       if(fmod(pontos / 10, 5) == 0){
         velocidade *= 0.75;
       }
+      */
+      
+      
+      
       //Fazer a cobra crescer
       tamanho_cobra += 1;
 

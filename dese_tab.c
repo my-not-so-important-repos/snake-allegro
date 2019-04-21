@@ -1,53 +1,69 @@
-void desenhar_tabuleiro(){
-  char x, y;
-  
-  for(y = 1; y <= 24; y++){
-    for(x = 1; x <= 27; x++){
-      switch(tabuleiro[x][y]){
+void desenhar_tabuleiro(board &tabuleiro){
+  acquire_screen();
+  for(int y = 1; y <= 24; y++)
+  {
+    for(int x = 1; x <= 27; x++)
+    {
+
+      /*
+      // #defeito# codigo semi-funcional
+      if(tabuleiro[x][y] <= 12)
+      {
+        blit(skin[tabuleiro[x][y]], screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
+      }
+      */
+
+
+
+
+
+      switch(tabuleiro[x][y])
+      {
         case 'Å'://197
-          blit(parede_cruz, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
+          blit(skin[CRUZ - 1], screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
         case '³':
-          blit(parede_vertical, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
+          blit(skin[VERTICAL - 1], screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
         case 'Ä':
-          blit(parede_horizontal, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
+          blit(skin[HORIZONTAL - 1], screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
           
         case 'Â'://194
-          blit(parede_t_baixo, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
+          blit(skin[T_BAIXO - 1], screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
         case 'Á':
-          blit(parede_t_cima, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
+          blit(skin[T_CIMA - 1], screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
         case '´'://180
-          blit(parede_t_esquerda, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
+          blit(skin[T_ESQUERDA - 1], screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
         case 'Ã'://195
-          blit(parede_t_direita, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
+          blit(skin[T_DIREITA - 1], screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
 
 
         case 'À':
-          blit(parede_superior_direita, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
+          blit(skin[CANTO_INFERIOR_ESQUERDO - 1], screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
           
         case 'Ú':
-          blit(parede_inferior_direita, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
+          blit(skin[CANTO_SUPERIOR_ESQUERDO - 1], screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
           
         case '¿':
-          blit(parede_inferior_esquerda, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
+          blit(skin[CANTO_SUPERIOR_DIREITO - 1], screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
         case 'Ù':
-          blit(parede_superior_esquerda, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
+          blit(skin[CANTO_INFERIOR_DIREITO - 1], screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
         case ' ':
         case 'Û':
-          blit(chao, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
+          blit(skin[VAZIO - 1], screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
       }
 
     }
   }
+  release_screen();
 }

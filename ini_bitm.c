@@ -1,11 +1,17 @@
-void bitmaps_init(){
+void bitmaps_init(char *arquivo){
   BITMAP *chipset;
-  PALETTE paleta;
+  chipset = load_bitmap(arquivo, NULL);
 
-  chipset = load_bitmap("chip2.bmp", paleta);
-  set_palette(paleta);
 
-  chao                     = create_bitmap(32, 32);
+  for(int i = 0; i < 27; i++)
+  {
+    int objeto_x, objeto_y;
+    objeto_x = i % 4;
+    objeto_y = i / 4;
+    skin[i] = create_bitmap(32, 32);
+    blit(chipset, skin[i], objeto_x * 32, objeto_y * 32, 0, 0, 32, 32);
+  }
+
   parede_cruz              = create_bitmap(32, 32);
   parede_horizontal        = create_bitmap(32, 32);
   parede_vertical          = create_bitmap(32, 32);
@@ -37,9 +43,8 @@ void bitmaps_init(){
 
   vertebra_horizontal = create_bitmap(32, 32);
   vertebra_vertical   = create_bitmap(32, 32);
-  maca                = create_bitmap(32, 32);
 
-  blit(chipset, chao,               0,  0, 0, 0, 32, 32);
+
   blit(chipset, parede_cruz,       32,  0, 0, 0, 32, 32);
   blit(chipset, parede_horizontal, 64,  0, 0, 0, 32, 32);
   blit(chipset, parede_vertical,   96,  0, 0, 0, 32, 32);
@@ -71,7 +76,6 @@ void bitmaps_init(){
 
   blit(chipset, vertebra_horizontal, 0, 192, 0, 0, 32, 32);
   blit(chipset, vertebra_vertical,  32, 192, 0, 0, 32, 32);
-  blit(chipset, maca,               64, 192, 0, 0, 32, 32);
 
-  destroy_bitmap(chipset); // para liberar mem¢ria
+  destroy_bitmap(chipset); // nao sera mais usado
 }
