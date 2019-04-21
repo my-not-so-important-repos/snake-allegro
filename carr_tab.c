@@ -23,6 +23,7 @@ void carregar_tabuleiro(){
         case '¿':
         case 'Ù':
         case ' ':
+        case 'Û'://219
           tabuleiro[x+1][y] = temp[x];
           break;
         case ''://30

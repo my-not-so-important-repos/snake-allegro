@@ -2,7 +2,7 @@ void bitmaps_init(){
   BITMAP *chipset;
   PALETTE paleta;
 
-  chipset = load_bitmap("skin\\chip2.bmp", paleta);
+  chipset = load_bitmap("chip2.bmp", paleta);
   set_palette(paleta);
 
   chao                     = create_bitmap(32, 32);

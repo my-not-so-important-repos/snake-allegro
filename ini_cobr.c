@@ -1,4 +1,4 @@
-void cobra_init(char posicao_inicial_x, char posicao_inicial_y, char direcao_inicial){
+void cobra_init(char posicao_inicial_x, char posicao_inicial_y){
 
   tamanho_cobra = 3;
   switch(direcao_inicial){

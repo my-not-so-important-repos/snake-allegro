@@ -2,6 +2,7 @@ void desenhar_cobra(char operacao){
   switch(operacao){
     case DESENHAR_PEDACO_COBRA:
       //desenhar a cabe‡a
+      tabuleiro[cobra[0].x][cobra[0].y] = 'c';
       switch(cobra[0].bitmap){
         case '': //30
           blit(cabeca_cima, screen, 0, 0, (cobra[0].x - 1) * 32, (cobra[0].y - 1) * 32, 32, 32);
@@ -17,9 +18,8 @@ void desenhar_cobra(char operacao){
           break;
       }
 
-      blit(cauda_cima, screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, 32, 32);
-
       //desenhar a cauda
+      tabuleiro[cobra[tamanho_cobra - 1].x][cobra[tamanho_cobra - 1].y] = 'c';
       switch(cobra[tamanho_cobra - 1].bitmap){
 	      case '': //24
   	    	blit(cauda_cima, screen, 0, 0, (cobra[tamanho_cobra - 1].x - 1) * 32, (cobra[tamanho_cobra - 1].y - 1) * 32, 32, 32);
@@ -48,6 +48,7 @@ void desenhar_cobra(char operacao){
     	{
         char i;
         for(i = 0; i <= (tamanho_cobra - 1); i++){
+          tabuleiro[cobra[i].x][cobra[i].y] = 'c';
           switch(cobra[i].bitmap){
             case '':
               blit(cabeca_cima, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
@@ -100,7 +101,7 @@ void desenhar_cobra(char operacao){
       break;
       
     case DESENHAR_CABECA:
-      //cabeca
+      tabuleiro[cobra[0].x][cobra[0].y] = 'c';
       switch(cobra[0].bitmap){
         case '':
           blit(cabeca_cima, screen, 0, 0, (cobra[0].x - 1) * 32, (cobra[0].y - 1) * 32, 32, 32);
@@ -141,6 +142,7 @@ void desenhar_cobra(char operacao){
       {
         char i;
         for(i = 0; i <= (tamanho_cobra - 1); i++){
+          tabuleiro[cobra[i].x][cobra[i].y] = ' ';
           blit(chao, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
         }
       };

@@ -43,6 +43,7 @@ void desenhar_tabuleiro(){
           blit(parede_superior_esquerda, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
         case ' ':
+        case 'Û':
           blit(chao, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
       }

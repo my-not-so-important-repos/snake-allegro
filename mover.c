@@ -70,6 +70,10 @@ void mover_cobra(){
     case 'm':
       tabuleiro[proximox][proximoy] = ' ';
       tem_maca = 0;
+      pontos += 10;
+      if(fmod(pontos / 10, 5) == 0){
+        velocidade -= 25000;
+      }
       //Fazer a cobra crescer
       tamanho_cobra += 1;
 
@@ -133,10 +137,12 @@ void mover_cobra(){
     case 'Â'://194
     case 'Ã'://195
     case '´'://180
+    case 'Å'://197
     case 'c':
       vidas--;
+      velocidade = 500000;
       desenhar_cobra(APAGAR_COBRA_INTEIRA);
-      cobra_init(posicao_inicial_x, posicao_inicial_y, direcao_inicial);
+      cobra_init(posicao_inicial_x, posicao_inicial_y);
       direcao = direcao_inicial;
       desenhar_cobra(DESENHAR_COBRA_INTEIRA);
       break;
