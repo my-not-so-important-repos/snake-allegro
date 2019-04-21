@@ -1,6 +1,5 @@
 #include <allegro.h>
 #include <stdio.h>
-#include <pc.h>
 #include <conio.h>
 
 #define MAX_COBRA 100
@@ -35,14 +34,14 @@ int main(){
   char tecla;
   int i;
   BITMAP *chipset;
-	PALETTE paleta;
+  PALETTE paleta;
   FILE *tabuleiro_arq;
 
   /******************************/
   /* Inicializa‡Æo da variaveis */
   /******************************/
   allegro_init();
-  set_gfx_mode(GFX_SAFE, 800, 600, 0, 0);
+  set_gfx_mode(GFX_SAFE, 1024, 768, 0, 0);
   chipset = load_bitmap("chip1.bmp", paleta);
   set_palette(paleta);
   
@@ -55,16 +54,24 @@ int main(){
   blit(chipset,   chao,  96, 0, 0, 0, 32, 32);
   blit(chipset, spider, 128, 0, 0, 0, 32, 32);
 
-  tamanho_cobra = 6;
-  cobra[0].x = 6;
-  cobra[0].y = 6;
-  cobra[1].x = 5;
-  cobra[1].y = 6;
-  cobra[2].x = 4;
-  cobra[2].y = 6;
+  tamanho_cobra = 3;
+  cobra[0].x = 12;
+  cobra[0].y = 12;
+  
+  cobra[1].x = 11;
+  cobra[1].y = 12;
+  
+  cobra[2].x = 10;
+  cobra[2].y = 12;
 
   game_over = 0;
   direcao = DIREITA;
+  
+  /************************************************************************/
+  /* fazer uma condi‡Æo que verifica se o usuario digitou um parƒmetro ao */
+  /* executar esse jogo, se sim, entƒo carregar o arquivo com o nome      */
+  /* do parƒmetro, caso contr rio, carregar o tabuleiro padrÆo.           */
+  /************************************************************************/
   tabuleiro_arq = fopen("board.dat", "r");
 
   /*************************/
@@ -117,7 +124,8 @@ int main(){
 
     mover_cobra();
     sleep(1);
-    //usleep(10000000);
+    //usleep(10000000); //muito r pido
+    
     while(kbhit()){
       tecla = getch();
       if(tecla == 0) tecla = getch(); //se a tecla pressionada for extendida, ler o sengundo caracter no buffer do teclado
@@ -128,7 +136,9 @@ int main(){
       case BAIXO:
       case DIREITA:
       case ESQUERDA:
-      	direcao = tecla;
+        if((direcao + tecla) != 152){ //a soma das setas opostas ‚ igual a 152
+	      	direcao = tecla;
+        }
         break;
       case ESC:
       case 'q':
@@ -144,7 +154,10 @@ void mover_cobra(){
   char i;
 
   desenhar_cobra(APAGAR_PEDACO_COBRA);
-  
+
+  /*******************************/
+  /* atualizar os dados da cobra */
+  /*******************************/
   for(i=1; i <= tamanho_cobra - 1; i++){
     cobra[i].x = cobra[i - 1].x;
     cobra[i].y = cobra[i - 1].y;
