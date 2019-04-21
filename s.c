@@ -159,57 +159,63 @@ void mover_cobra(){
   /* atualizar os dados da cobra */
   /*******************************/
   for(i=1; i <= tamanho_cobra - 1; i++){
-    cobra[i].x = cobra[i - 1].x;
-    cobra[i].y = cobra[i - 1].y;
-    cobra[i].bitmap = cobra[i - 1].bitmap;
+    cobra[i] = cobra[i - 1];
   }
-  
+
+  /*************************************************/
+  /* Atualiza os bitmaps do rabo, pesco‡o e cabe‡a */
+  /*************************************************/
+	//cobra[tamanho_cobra-1].bitmap = ' ';
+	//cobra[1].bitmap = ' ';
+
+  /********************************/
+  /* Calcular a posi‡Æo da cabe‡a */
+  /********************************/
   switch(direcao){
-  	case CIMA:
-      if(tabuleiro[cobra[0].x][cobra[0].y - 1] == ' '){
-        cobra[0].y = cobra[0].y - 1;
-        desenhar_cobra(DESENHAR_PEDACO_COBRA);
-        
-      }
-      else game_over = 1;
-
-
-        //permitir o movimento
-        //blit
-    	break;
+    case CIMA:
+			cobra[0].y = cobra[0].y - 1;
+      break;
     case BAIXO:
-      if(tabuleiro[cobra[0].x][cobra[0].y + 1] == ' ');
-    	break;
+      cobra[0].y = cobra[0].y + 1;
+      break;
     case ESQUERDA:
-      if(tabuleiro[cobra[0].x - 1][cobra[0].y] == ' ');
-    	break;
+    	cobra[0].x = cobra[0].x - 1;
+      break;
     case DIREITA:
-      if(tabuleiro[cobra[0].x + 1][cobra[0].y] == ' ');
-    	break;
+    	cobra[0].x = cobra[0].x + 1;
+      break;
   }
+
+  if(tabuleiro[cobra[0].x][cobra[0].y] == ' '){
+    desenhar_cobra(DESENHAR_PEDACO_COBRA);
+  }
+  else game_over = 1;
 }
 
+
+
 void desenhar_cobra(char operacao){
-  char i;
-  
   switch(operacao){
     case DESENHAR_PEDACO_COBRA:
-      for(i=0; i <= tamanho_cobra - 1; i++){
-        //modificar na matriz
-        tabuleiro[cobra[i].x][cobra[i].y] = ' ';
-        
-        //modificar na tela
-        blit(chao, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, parede->w, parede->h);
-      }
+      //desenhar a cabe‡a
+      blit(spider, screen, 0, 0, (cobra[0].x - 1) * 32, (cobra[0].y - 1) * 32, parede->w, parede->h);
+
+      //desenhar o pesco‡o
+      blit(spider, screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, parede->w, parede->h);
+
+      //desenhar o rabo
+      blit(spider, screen, 0, 0, (cobra[tamanho_cobra - 1].x - 1) * 32, (cobra[tamanho_cobra - 1].y - 1) * 32, parede->w, parede->h);
       break;
     case APAGAR_PEDACO_COBRA:
-      for(i=0; i <= tamanho_cobra - 1; i++){
-        //modificar na matriz
-        tabuleiro[cobra[i].x][cobra[i].y] = 'V';
-        
-        //modificar na tela
-        blit(spider, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, parede->w, parede->h);
-      }
+			//Apagar a cabe‡a
+			blit(chao, screen, 0, 0, (cobra[0].x - 1) * 32, (cobra[0].y - 1) * 32, parede->w, parede->h);
+
+			//Apagar o pesco‡o
+			blit(chao, screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, parede->w, parede->h);
+
+			//apagar o rabo
+      blit(chao, screen, 0, 0, (cobra[tamanho_cobra - 1].x -1) * 32, (cobra[tamanho_cobra - 1].y - 1) * 32, parede->w, parede->h);
+
       break;
   }
 }
