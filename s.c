@@ -15,6 +15,8 @@
 #define DESENHAR_PEDACO_COBRA 1
 #define APAGAR_PEDACO_COBRA 2
 #define DESENHAR_CABECA 3
+#define DESENHAR_COBRA_INTEIRA 4
+#define APAGAR_COBRA_INTEIRA 5
 
 int main(void);
 void mover_cobra(void);
@@ -48,54 +50,89 @@ int main(){
   set_gfx_mode(GFX_SAFE, 1024, 768, 0, 0);
   chipset = load_bitmap("chip1.bmp", paleta);
   set_palette(paleta);
-  
+
+  /*****************/
+  /* Criar bitmaps */
+  /*****************/
   chao										 = create_bitmap(32, 32);
   parede									 = create_bitmap(32, 32);
   maca										 = create_bitmap(32, 32);
 
   cabecacima               = create_bitmap(32, 32);
+  cabecadireita            = create_bitmap(32, 32);
   cabecabaixo              = create_bitmap(32, 32);
   cabecaesquerda           = create_bitmap(32, 32);
-  cabecadireita            = create_bitmap(32, 32);
 
   caudacima                = create_bitmap(32, 32);
+  caudadireita             = create_bitmap(32, 32);
   caudabaixo               = create_bitmap(32, 32);
   caudaesquerda            = create_bitmap(32, 32);
-  caudadireita             = create_bitmap(32, 32);
   
-  vertebrahorizontal			 = create_bitmap(32, 32);
-  vertebravertical				 = create_bitmap(32, 32);
+  vertebrasuperioresquerda = create_bitmap(32, 32);
+  vertebrasuperiordireita  = create_bitmap(32, 32);
   vertebrainferiordireita	 = create_bitmap(32, 32);
   vertebrainferioresquerda = create_bitmap(32, 32);
-  vertebrasuperiordireita  = create_bitmap(32, 32);
-  vertebrasuperioresquerda = create_bitmap(32, 32);
+  vertebrahorizontal			 = create_bitmap(32, 32);
+  vertebravertical				 = create_bitmap(32, 32);
 
-
-  blit(chipset, parede,  0, 0, 0, 0, 32, 32);
-  blit(chipset,   chao, 96, 0, 0, 0, 32, 32);
+  /************************/
+  /* Preencher os bitmaps */
+  /************************/
+  blit(chipset, chao,  96,  0, 0, 0, 32, 32);
+  blit(chipset, parede, 0,  0, 0, 0, 32, 32);
+  blit(chipset, maca,  28, 32, 0, 0, 32, 32);
 
   blit(chipset, cabecacima,      0, 64, 0, 0, 32, 32);
   blit(chipset, cabecadireita,  32, 64, 0, 0, 32, 32);
   blit(chipset, cabecabaixo,    64, 64, 0, 0, 32, 32);
   blit(chipset, cabecaesquerda, 96, 64, 0, 0, 32, 32);
 
-  
-  blit(chipset,  caudacima,      0, 96, 0, 0, 32, 32);
-  blit(chipset,  caudadireita,  32, 96, 0, 0, 32, 32);
-  blit(chipset,  caudabaixo,    64, 96, 0, 0, 32, 32);
-  blit(chipset,  caudaesquerda, 96, 96, 0, 0, 32, 32);
+  blit(chipset, caudabaixo,     0, 96, 0, 0, 32, 32);
+  blit(chipset, caudaesquerda, 32, 96, 0, 0, 32, 32);
+  blit(chipset, caudacima,     64, 96, 0, 0, 32, 32);
+  blit(chipset, caudadireita,  96, 96, 0, 0, 32, 32);
 
+  blit(chipset, vertebrasuperioresquerda,  0, 32, 0, 0, 32, 32);
+  blit(chipset, vertebrasuperiordireita,  32, 32, 0, 0, 32, 32);
+  blit(chipset, vertebrainferiordireita,  64, 32, 0, 0, 32, 32);
+  blit(chipset, vertebrainferioresquerda, 96, 32, 0, 0, 32, 32);
+  blit(chipset, vertebrahorizontal,      128, 96, 0, 0, 32, 32);
+  blit(chipset, vertebravertical,         96, 96, 0, 0, 32, 32);
 
-  tamanho_cobra = 3;
+  tamanho_cobra = 7;
   cobra[0].x = 12;
   cobra[0].y = 12;
+  cobra[0].bitmap = '';
   
   cobra[1].x = 11;
   cobra[1].y = 12;
+  cobra[1].bitmap = 'Í';
   
   cobra[2].x = 10;
   cobra[2].y = 12;
+  cobra[2].bitmap = 'Í';
 
+  cobra[3].x = 9;
+  cobra[3].y = 12;
+  cobra[3].bitmap = 'Í';
+
+  cobra[4].x = 8;
+  cobra[4].y = 12;
+  cobra[4].bitmap = 'Í';
+
+  cobra[5].x = 7;
+  cobra[5].y = 12;
+  cobra[5].bitmap = 'Í';
+
+  cobra[6].x = 6;
+  cobra[6].y = 12;
+  cobra[6].bitmap = '';
+
+  for(i = 0; i <= tamanho_cobra - 1; i++){
+    tabuleiro[cobra[i].x][cobra[i].y] = 'c';
+  }
+
+  
   game_over = 0;
   direcao = DIREITA;
 
@@ -142,10 +179,10 @@ int main(){
         case 'Ù':
         case '³':
         case 'Ä':
-          blit(parede, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, parede->w, parede->h);
+          blit(parede, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
         case ' ':
-          blit(chao, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, parede->w, parede->h);
+          blit(chao, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
       }
     }
@@ -154,11 +191,12 @@ int main(){
   /****************************/
   /* In¡cio do loop principal */
   /****************************/
-  
+
   while(!game_over){
 
     
     mover_cobra();
+
     usleep(500000); //lento
     
     while(kbhit()){
@@ -200,9 +238,10 @@ void mover_cobra(){
   /*******************************/
   /* atualizar os dados da cobra */
   /*******************************/
-  for(i=1; i <= tamanho_cobra - 1; i++){
+  for(i=tamanho_cobra - 1; i > 0; i--){
     cobra[i] = cobra[i - 1];
   }
+
 
   /*****************************************/
   /* Atualiza os bitmaps do rabo e pesco‡o */
@@ -232,20 +271,31 @@ void mover_cobra(){
 			break;
   }
 
+
+
+  switch(tabuleiro[cobra[0].x][cobra[0].y]){
+    case ' ':
+      desenhar_cobra(DESENHAR_COBRA_INTEIRA);
+      break;
+    case 'c':
+      game_over = 1;
+      break;
+  }
+
+/*
+  
   if(tabuleiro[cobra[0].x][cobra[0].y] == ' '){
-    desenhar_cobra(DESENHAR_PEDACO_COBRA);
+    //desenhar_cobra(DESENHAR_PEDACO_COBRA);
+    desenhar_cobra(DESENHAR_COBRA_INTEIRA);
   }
   else game_over = 1;
+*/
 }
 
 
 
-
-
-
-
-
 void desenhar_cobra(char operacao){
+
   switch(operacao){
     case DESENHAR_PEDACO_COBRA:
       //desenhar a cabe‡a
@@ -276,10 +326,9 @@ void desenhar_cobra(char operacao){
       	case '': //25
       		blit(caudabaixo, screen, 0, 0, (cobra[tamanho_cobra - 1].x - 1) * 32, (cobra[tamanho_cobra - 1].y - 1) * 32, parede->w, parede->h);
 	        break;
-/*  	    case '': //26
-    	  	blit(caudadireita, screen, 0, 0, (cobra[tamanho_cobra - 1].x - 1) * 32, (cobra[tamanho_cobra - 1].y - 1) * 32, parede->w, parede->h);
+  	    case 26: // eu nao posso colocar o caracter por que ele ‚ o EOF, o compilador vai entender que aqui ‚ o fim do c¢digo fonte
+    	  	  blit(caudadireita, screen, 0, 0, (cobra[tamanho_cobra - 1].x - 1) * 32, (cobra[tamanho_cobra - 1].y - 1) * 32, parede->w, parede->h);
       	  break;
-        */
 	      case '': //27
   	    	blit(caudaesquerda, screen, 0, 0, (cobra[tamanho_cobra - 1].x - 1) * 32, (cobra[tamanho_cobra - 1].y - 1) * 32, parede->w, parede->h);
     	    break;
@@ -287,12 +336,70 @@ void desenhar_cobra(char operacao){
       break;
       
     case APAGAR_PEDACO_COBRA:
+      tabuleiro[cobra[tamanho_cobra - 1].x][cobra[tamanho_cobra - 1].y] = ' ';
+      
 			blit(chao, screen, 0, 0, (cobra[0].x - 1) * 32, (cobra[0].y - 1) * 32, chao->w, chao->h); //Apagar a cabe‡a
 			blit(chao, screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, chao->w, chao->h); //Apagar o pesco‡o
       blit(chao, screen, 0, 0, (cobra[tamanho_cobra - 1].x -1) * 32, (cobra[tamanho_cobra - 1].y - 1) * 32, chao->w, chao->h); //apagar o rabo
       break;
       
     case DESENHAR_CABECA:
+      break;
+    case DESENHAR_COBRA_INTEIRA:
+    	{
+        char i;
+        for(i = 0; i <= (tamanho_cobra - 1) ;i++){
+          switch(cobra[i].bitmap){
+            case '':
+              blit(cabecacima, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              break;
+            case '':
+              blit(cabecabaixo, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              break;
+            case '':
+              blit(cabecaesquerda, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              break;
+            case '':
+              blit(cabecadireita, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              break;
+
+            case '':
+              blit(caudaesquerda, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              break;
+            case 26: // eu nÆo coloquei o caracter aqui pelos motivos j  descritos acima.
+              blit(caudadireita, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              break;
+            case '':
+              blit(caudacima, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              break;
+            case '':
+              blit(caudabaixo, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              break;
+
+            case 'Í':
+              blit(vertebrahorizontal, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              break;
+            case 'º':
+              blit(vertebravertical, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              break;
+              
+            case 'É':
+              blit(vertebrasuperiordireita, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              break;
+            case '»':
+              blit(vertebrasuperioresquerda, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              break;
+            case 'È':
+              blit(vertebrainferiordireita, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              break;
+            case '¼':
+              blit(vertebrainferioresquerda, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+              break;
+          }
+        };
+      };
+      break;
+    case APAGAR_COBRA_INTEIRA:
       break;
   }
 }
