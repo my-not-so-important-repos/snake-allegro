@@ -21,8 +21,9 @@
 int main(void);
 void mover_cobra(void);
 void desenhar_cobra(char);
+void cobra_init(int, int);
 
-char tabuleiro[33][23], x, y, tamanho_cobra, direcao, game_over;
+char tabuleiro[33][23], x, y, tamanho_cobra, direcao, vidas;
 BITMAP *chao, *parede, *maca,
        *cabecacima, *cabecabaixo, *cabecaesquerda, *cabecadireita,
        *caudacima, *caudabaixo, *caudaesquerda, *caudadireita,
@@ -133,7 +134,7 @@ int main(){
   }
 
   
-  game_over = 0;
+  vidas = 3;
   direcao = DIREITA;
 
   destroy_bitmap(chipset); // para liberar mem¢ria
@@ -192,7 +193,7 @@ int main(){
   /* In¡cio do loop principal */
   /****************************/
 
-  while(!game_over){
+  while(vidas){
 
     
     mover_cobra();
@@ -215,7 +216,7 @@ int main(){
         break;
       case ESC:
       case 'q':
-        game_over = 1;
+        vidas = 0;
         break;
     }
   }
@@ -277,8 +278,11 @@ void mover_cobra(){
     case ' ':
       desenhar_cobra(DESENHAR_COBRA_INTEIRA);
       break;
+    case 'Ä':
+    case '³':
     case 'c':
-      game_over = 1;
+      vidas--;
+      cobra_init(12, 12);
       break;
   }
 
@@ -314,8 +318,6 @@ void desenhar_cobra(char operacao){
           break;
       }
 
-      //desenhar o pesco‡o
-      //BUG: a cauda est  na mesma posicao do pesco‡o
       blit(caudacima, screen, 0, 0, (cobra[1].x - 1) * 32, (cobra[1].y - 1) * 32, parede->w, parede->h);
 
       //desenhar a cauda
@@ -400,6 +402,48 @@ void desenhar_cobra(char operacao){
       };
       break;
     case APAGAR_COBRA_INTEIRA:
+      {
+        char i;
+        for(i=0; i<= tamanho_cobra - 1 ; i++){
+          blit(chao, screen, 0, 0, (cobra[i].x - 1) * 32, (cobra[i].y - 1) * 32, 32, 32);
+        }
+      };
       break;
   }
+}
+
+
+
+
+
+
+void cobra_init(int posicaoinicialx, int posicaoinicialy){
+
+  unsigned short i;
+
+  for(i = tamanho_cobra - 1; i <= 0; i--){
+    tabuleiro[cobra[i].x][cobra[i].y] = ' ';
+  }
+
+  tabuleiro[posicaoinicialx][posicaoinicialy] = 'c';
+  tabuleiro[posicaoinicialx-1][posicaoinicialy] = 'c';
+  tabuleiro[posicaoinicialx-2][posicaoinicialy] = 'c';
+
+  desenhar_cobra(APAGAR_COBRA_INTEIRA);
+  
+  tamanho_cobra = 3;
+  
+  cobra[0].x = 12;
+  cobra[0].y = 12;
+  cobra[0].bitmap = '';
+  
+  cobra[1].x = 11;
+  cobra[1].y = 12;
+  cobra[1].bitmap = 'Í';
+  
+  cobra[2].x = 10;
+  cobra[2].y = 12;
+  cobra[2].bitmap = '';
+
+
 }
