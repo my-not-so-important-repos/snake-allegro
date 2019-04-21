@@ -1,8 +1,8 @@
 void desenhar_tabuleiro(){
   char x, y;
   
-  for(y = 1; y <= 23; y++){
-    for(x = 1; x <= 32; x++){
+  for(y = 1; y <= 24; y++){
+    for(x = 1; x <= 27; x++){
       switch(tabuleiro[x][y]){
         case 'Å'://197
           blit(parede_cruz, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
@@ -46,7 +46,7 @@ void desenhar_tabuleiro(){
           blit(chao, screen, 0, 0, (x - 1) * 32, (y - 1) * 32, 32, 32);
           break;
       }
-      getch();
+
     }
   }
 }

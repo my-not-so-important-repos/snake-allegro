@@ -67,12 +67,31 @@ void mover_cobra(){
   switch(tabuleiro[proximox][proximoy]){
     char i;
 
+    case 'm':
+      tabuleiro[proximox][proximoy] = ' ';
+      tem_maca = 0;
+      //Fazer a cobra crescer
+      tamanho_cobra += 1;
+
+      cobra[tamanho_cobra - 1] = cobra[tamanho_cobra - 2];
+      for(i = tamanho_cobra - 1; i >= 1; i--){
+        cobra[i] = cobra[i - 1];
+      }
+
+      // Atualizar o bitmap do pesco‡o
+      cobra[1].bitmap = proximo_bitmap_pescoco;
+
+      // Atualizar posicao da cabeca
+      cobra[0].x = proximox;
+      cobra[0].y = proximoy;
+      cobra[0].bitmap = proximo_bitmap_cabeca;
+
+      desenhar_cobra(DESENHAR_CABECA);
+      break;
     case ' ':
       desenhar_cobra(APAGAR_PEDACO_COBRA);
-      
-      /*******************************/
-      /* atualizar os dados da cobra */
-      /*******************************/
+
+      // Atualizar os dados da cobra
       for(i = tamanho_cobra - 1; i >= 2; i--){
         cobra[i] = cobra[i - 1];
       }
@@ -104,19 +123,23 @@ void mover_cobra(){
 
       desenhar_cobra(DESENHAR_COBRA_INTEIRA);
       break;
-    case 'm':
-      break;
     case 'Ä'://196
     case '³'://179
     case 'À'://192
     case '¿'://191
     case 'Ù'://217
     case 'Ú'://218
+    case 'Á'://193
+    case 'Â'://194
+    case 'Ã'://195
+    case '´'://180
     case 'c':
       vidas--;
       desenhar_cobra(APAGAR_COBRA_INTEIRA);
-      cobra_init(12, 12);
+      cobra_init(posicao_inicial_x, posicao_inicial_y, direcao_inicial);
+      direcao = direcao_inicial;
       desenhar_cobra(DESENHAR_COBRA_INTEIRA);
       break;
   }
 }
+
